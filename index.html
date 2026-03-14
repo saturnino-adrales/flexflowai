@@ -3,10 +3,1353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlexFlow Infinite</title>
+    <title>FlexFlow Infinite AI — Your AI-Powered Fitness Revolution</title>
+    <meta name="description" content="FlexFlow Infinite AI delivers hyper-personalized workout plans, real-time form coaching, and adaptive fitness intelligence. Transform your body with the power of AI.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========== RESET & BASE ========== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #09090b;
+            color: #fafafa;
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* ========== CSS VARIABLES ========== */
+        :root {
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --accent-glow: rgba(124, 58, 237, 0.35);
+            --cyan: #06b6d4;
+            --emerald: #10b981;
+            --rose: #f43f5e;
+            --surface: #18181b;
+            --surface-2: #27272a;
+            --border: #3f3f46;
+            --text-muted: #a1a1aa;
+            --radius: 16px;
+            --max-w: 1200px;
+        }
+
+        /* ========== UTILITY ========== */
+        .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-light), var(--cyan), var(--emerald));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+        }
+
+        /* ========== NAVBAR ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: background 0.3s, backdrop-filter 0.3s;
+        }
+        .navbar.scrolled {
+            background: rgba(9, 9, 11, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 800;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #fff; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #9333ea);
+            color: #fff;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 50px var(--accent-glow);
+        }
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: var(--accent-light);
+            background: rgba(124, 58, 237, 0.08);
+        }
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+        .mobile-toggle span {
+            width: 24px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .hero-bg .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            animation: float 8s ease-in-out infinite;
+        }
+        .hero-bg .orb-1 { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
+        .hero-bg .orb-2 { width: 400px; height: 400px; background: var(--cyan); bottom: -50px; left: -150px; animation-delay: -3s; }
+        .hero-bg .orb-3 { width: 300px; height: 300px; background: var(--emerald); top: 40%; left: 50%; animation-delay: -5s; }
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(124, 58, 237, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124, 58, 237, 0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-content { max-width: 580px; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(124, 58, 237, 0.12);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--accent-light);
+            margin-bottom: 28px;
+        }
+        .hero-badge .pulse {
+            width: 8px; height: 8px;
+            background: var(--emerald);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.8rem, 6vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.08;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+        .hero-stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .hero-stat-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        .hero-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--cyan), var(--emerald));
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .card-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+        .card-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            color: var(--emerald);
+        }
+        .card-status .dot {
+            width: 6px; height: 6px;
+            background: var(--emerald);
+            border-radius: 50%;
+        }
+        .ai-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .metric-box {
+            background: var(--surface-2);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .metric-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .metric-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .metric-bar {
+            height: 4px;
+            background: var(--surface);
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 1.5s ease;
+        }
+        .ai-output {
+            background: var(--surface-2);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .ai-output-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 0.78rem;
+            color: var(--accent-light);
+        }
+        .ai-typing {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .ai-typing .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--accent-light);
+            animation: blink 1s infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .float-badge {
+            position: absolute;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: floatBadge 4s ease-in-out infinite;
+        }
+        .float-badge-1 { top: -10px; right: -30px; animation-delay: -1s; }
+        .float-badge-2 { bottom: 40px; left: -40px; animation-delay: -2.5s; }
+        @keyframes floatBadge {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .badge-icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        /* ========== FEATURES ========== */
+        .features { padding: 120px 0; position: relative; }
+        .features-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        .features-header .section-desc { margin: 0 auto; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .feature-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 36px 28px;
+            transition: all 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+        .feature-card:hover {
+            border-color: rgba(124, 58, 237, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(124, 58, 237, 0.08);
+        }
+        .feature-card:hover::before { opacity: 1; }
+        .feature-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+        .feature-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+
+        /* ========== HOW IT WORKS ========== */
+        .how-it-works { padding: 120px 0; background: var(--surface); }
+        .how-header { text-align: center; margin-bottom: 72px; }
+        .how-header .section-desc { margin: 0 auto; }
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            position: relative;
+        }
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 16%;
+            right: 16%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--cyan), var(--emerald));
+            opacity: 0.3;
+        }
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        .step-number {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #9333ea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 0 auto 24px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 0 40px var(--accent-glow);
+        }
+        .step h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .step p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        /* ========== SHOWCASE ========== */
+        .showcase { padding: 120px 0; }
+        .showcase .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .showcase-content .section-desc { margin-bottom: 36px; }
+        .showcase-list { display: flex; flex-direction: column; gap: 20px; }
+        .showcase-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .showcase-item-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: rgba(124, 58, 237, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .showcase-item h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 0.98rem;
+        }
+        .showcase-item p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+        .showcase-visual {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+        }
+        .showcase-visual::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(124,58,237,0.2), transparent, rgba(6,182,212,0.2));
+            z-index: -1;
+        }
+        .workout-plan-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 24px;
+        }
+        .workout-plan-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .workout-day { font-size: 0.78rem; color: var(--accent-light); font-weight: 500; }
+        .exercise-list { display: flex; flex-direction: column; gap: 12px; }
+        .exercise-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--surface-2);
+            border-radius: 12px;
+            padding: 14px 18px;
+        }
+        .exercise-info { display: flex; align-items: center; gap: 12px; }
+        .exercise-emoji { font-size: 1.2rem; }
+        .exercise-name { font-size: 0.9rem; font-weight: 500; }
+        .exercise-sets { font-size: 0.78rem; color: var(--text-muted); }
+        .exercise-detail {
+            font-size: 0.78rem;
+            color: var(--cyan);
+            font-weight: 500;
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials {
+            padding: 120px 0;
+            background: var(--surface);
+        }
+        .testimonials-header { text-align: center; margin-bottom: 64px; }
+        .testimonials-header .section-desc { margin: 0 auto; }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .testimonial-card {
+            background: #09090b;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+        }
+        .testimonial-stars {
+            color: #f59e0b;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+        .testimonial-card blockquote {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .author-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        .author-name { font-weight: 600; font-size: 0.9rem; }
+        .author-role { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* ========== PRICING ========== */
+        .pricing { padding: 120px 0; }
+        .pricing-header { text-align: center; margin-bottom: 64px; }
+        .pricing-header .section-desc { margin: 0 auto; }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+        .pricing-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px;
+            transition: transform 0.3s;
+        }
+        .pricing-card:hover { transform: translateY(-4px); }
+        .pricing-card.featured {
+            border-color: var(--accent);
+            position: relative;
+            box-shadow: 0 0 60px rgba(124, 58, 237, 0.12);
+        }
+        .pricing-card.featured::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--cyan));
+            border-radius: 20px 20px 0 0;
+        }
+        .pricing-popular {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #9333ea);
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 14px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+        .pricing-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .pricing-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        .pricing-amount {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .pricing-amount span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+        .pricing-period {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+        .pricing-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        .pricing-feature .check { color: var(--emerald); }
+        .pricing-card .btn { width: 100%; }
+
+        /* ========== CTA ========== */
+        .cta {
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(124,58,237,0.1), transparent, rgba(6,182,212,0.1));
+        }
+        .cta .container {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+        .cta .section-title { max-width: 700px; margin: 0 auto 20px; }
+        .cta .section-desc {
+            margin: 0 auto 40px;
+            text-align: center;
+        }
+        .cta-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: 64px 0 32px;
+            border-top: 1px solid var(--border);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-top: 16px;
+            line-height: 1.65;
+            max-width: 300px;
+        }
+        .footer-col h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+        .footer-col a {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-bottom: 10px;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover { color: #fff; }
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+        .footer-socials { display: flex; gap: 20px; }
+        .footer-socials a { transition: color 0.2s; }
+        .footer-socials a:hover { color: var(--accent-light); }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .hero .container { grid-template-columns: 1fr; text-align: center; }
+            .hero-content { max-width: 100%; }
+            .hero-actions { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .hero-visual { margin-top: 40px; }
+            .float-badge-1 { right: 0; }
+            .float-badge-2 { left: 0; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .showcase .container { grid-template-columns: 1fr; }
+            .showcase-visual { max-width: 480px; margin: 0 auto; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-toggle { display: flex; }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(9, 9, 11, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 24px;
+                gap: 16px;
+                border-bottom: 1px solid var(--border);
+            }
+            .features-grid,
+            .steps,
+            .testimonials-grid,
+            .pricing-grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+            .steps::before { display: none; }
+            .hero-stats { flex-direction: column; gap: 20px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to FlexFlow Infinite</h1>
-    <p>Your fitness journey starts here!</p>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="#" class="logo">
+            <div class="logo-icon">FF</div>
+            FlexFlow <span class="gradient-text">AI</span>
+        </a>
+        <div class="nav-links" id="navLinks">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#showcase">AI Coach</a>
+            <a href="#pricing">Pricing</a>
+            <button class="btn btn-primary" onclick="scrollToSection('cta')">Get Started</button>
+        </div>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="hero">
+    <div class="hero-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="hero-grid"></div>
+    </div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="pulse"></span>
+                AI-Powered Fitness Intelligence
+            </div>
+            <h1>Your Fitness,<br><span class="gradient-text">Infinitely Evolved</span></h1>
+            <p>FlexFlow Infinite AI adapts to your body in real-time. Powered by cutting-edge machine learning, every rep, set, and recovery window is optimized for your unique physiology.</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary">Start Free Trial</button>
+                <button class="btn btn-outline">Watch Demo</button>
+            </div>
+            <div class="hero-stats">
+                <div>
+                    <div class="hero-stat-value gradient-text">250K+</div>
+                    <div class="hero-stat-label">Active Users</div>
+                </div>
+                <div>
+                    <div class="hero-stat-value gradient-text">94%</div>
+                    <div class="hero-stat-label">Goal Achievement</div>
+                </div>
+                <div>
+                    <div class="hero-stat-value gradient-text">4.9</div>
+                    <div class="hero-stat-label">App Rating</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-card">
+                <div class="card-header">
+                    <h3>AI Training Dashboard</h3>
+                    <div class="card-status"><span class="dot"></span> Live</div>
+                </div>
+                <div class="ai-metrics">
+                    <div class="metric-box">
+                        <div class="metric-label">Performance</div>
+                        <div class="metric-value" style="color: var(--emerald);">92<span style="font-size:0.8rem;">%</span></div>
+                        <div class="metric-bar"><div class="metric-bar-fill" style="width:92%;background:var(--emerald);"></div></div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Recovery</div>
+                        <div class="metric-value" style="color: var(--cyan);">87<span style="font-size:0.8rem;">%</span></div>
+                        <div class="metric-bar"><div class="metric-bar-fill" style="width:87%;background:var(--cyan);"></div></div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Intensity</div>
+                        <div class="metric-value" style="color: var(--accent-light);">High</div>
+                        <div class="metric-bar"><div class="metric-bar-fill" style="width:78%;background:var(--accent);"></div></div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Calories</div>
+                        <div class="metric-value" style="color: var(--rose);">1,847</div>
+                        <div class="metric-bar"><div class="metric-bar-fill" style="width:65%;background:var(--rose);"></div></div>
+                    </div>
+                </div>
+                <div class="ai-output">
+                    <div class="ai-output-header">
+                        <span>&#9679;</span> FlexFlow AI Insight
+                    </div>
+                    <div class="ai-typing">
+                        <span id="typingText"></span><span class="cursor"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="float-badge float-badge-1">
+                <div class="badge-icon" style="background: rgba(16,185,129,0.15); color: var(--emerald);">&#9650;</div>
+                +23% Strength
+            </div>
+            <div class="float-badge float-badge-2">
+                <div class="badge-icon" style="background: rgba(6,182,212,0.15); color: var(--cyan);">&#9829;</div>
+                Heart Rate: 72 bpm
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FEATURES ==================== -->
+<section class="features" id="features">
+    <div class="container">
+        <div class="features-header reveal">
+            <div class="section-label">Features</div>
+            <h2 class="section-title">Everything You Need to<br><span class="gradient-text">Train Smarter</span></h2>
+            <p class="section-desc">Our AI engine processes thousands of data points to deliver a training experience that evolves with you.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(124,58,237,0.12); color: var(--accent-light);">&#9889;</div>
+                <h3>Adaptive AI Plans</h3>
+                <p>Workouts that dynamically adjust based on your progress, fatigue levels, and real-time biometric data.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(6,182,212,0.12); color: var(--cyan);">&#128269;</div>
+                <h3>Form Analysis</h3>
+                <p>Computer vision-powered form correction. Get instant feedback on every movement to prevent injury.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(16,185,129,0.12); color: var(--emerald);">&#128200;</div>
+                <h3>Progress Intelligence</h3>
+                <p>Deep analytics that visualize your gains over time and predict future milestones with precision.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(244,63,94,0.12); color: var(--rose);">&#128150;</div>
+                <h3>Recovery Optimization</h3>
+                <p>AI-driven recovery windows that monitor sleep, stress, and soreness to keep you injury-free.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(245,158,11,0.12); color: #f59e0b;">&#127860;</div>
+                <h3>Smart Nutrition</h3>
+                <p>Personalized meal plans that sync with your training goals and automatically adjust to your macros.</p>
+            </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon" style="background: rgba(139,92,246,0.12); color: #8b5cf6;">&#128101;</div>
+                <h3>Community Challenges</h3>
+                <p>Compete in AI-curated challenges. Train with friends, join leaderboards, and celebrate milestones together.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== HOW IT WORKS ==================== -->
+<section class="how-it-works" id="how-it-works">
+    <div class="container">
+        <div class="how-header reveal">
+            <div class="section-label">How It Works</div>
+            <h2 class="section-title">Three Steps to<br><span class="gradient-text">Infinite Progress</span></h2>
+            <p class="section-desc">Getting started is effortless. Our AI does the heavy lifting so you can focus on yours.</p>
+        </div>
+        <div class="steps">
+            <div class="step reveal">
+                <div class="step-number">1</div>
+                <h3>Tell Us Your Goals</h3>
+                <p>Answer a few quick questions about your fitness level, goals, and available equipment.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-number" style="background: linear-gradient(135deg, var(--cyan), #0891b2);">2</div>
+                <h3>AI Builds Your Plan</h3>
+                <p>Our AI engine creates a fully personalized training and nutrition program tailored to you.</p>
+            </div>
+            <div class="step reveal">
+                <div class="step-number" style="background: linear-gradient(135deg, var(--emerald), #059669);">3</div>
+                <h3>Train & Evolve</h3>
+                <p>Start training while the AI continuously learns and adapts your plan for optimal results.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SHOWCASE ==================== -->
+<section class="showcase" id="showcase">
+    <div class="container">
+        <div class="showcase-content reveal">
+            <div class="section-label">AI Coach</div>
+            <h2 class="section-title">Meet Your Personal<br><span class="gradient-text">AI Coach</span></h2>
+            <p class="section-desc">More than a workout app. FlexFlow Infinite AI is like having a world-class trainer, nutritionist, and sports scientist in your pocket.</p>
+            <div class="showcase-list">
+                <div class="showcase-item">
+                    <div class="showcase-item-icon">&#127919;</div>
+                    <div>
+                        <h4>Goal-Aware Programming</h4>
+                        <p>Whether you're cutting, bulking, or training for a marathon, the AI structures every session around your objective.</p>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <div class="showcase-item-icon">&#128337;</div>
+                    <div>
+                        <h4>Real-Time Adjustments</h4>
+                        <p>Feeling fatigued? Crushed your last set? The AI dynamically adjusts volume and intensity mid-workout.</p>
+                    </div>
+                </div>
+                <div class="showcase-item">
+                    <div class="showcase-item-icon">&#129504;</div>
+                    <div>
+                        <h4>Predictive Insights</h4>
+                        <p>Know when you'll hit your next PR, when to deload, and how your body responds to different training stimuli.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="showcase-visual reveal">
+            <div class="workout-plan-header">
+                <h3>Today's AI-Optimized Plan</h3>
+                <span class="workout-day">Day 14 &middot; Upper Body</span>
+            </div>
+            <div class="exercise-list">
+                <div class="exercise-item">
+                    <div class="exercise-info">
+                        <span class="exercise-emoji">&#127947;</span>
+                        <div>
+                            <div class="exercise-name">Bench Press</div>
+                            <div class="exercise-sets">4 sets &middot; 8-10 reps</div>
+                        </div>
+                    </div>
+                    <div class="exercise-detail">185 lbs</div>
+                </div>
+                <div class="exercise-item">
+                    <div class="exercise-info">
+                        <span class="exercise-emoji">&#128170;</span>
+                        <div>
+                            <div class="exercise-name">Weighted Pull-ups</div>
+                            <div class="exercise-sets">4 sets &middot; 6-8 reps</div>
+                        </div>
+                    </div>
+                    <div class="exercise-detail">+25 lbs</div>
+                </div>
+                <div class="exercise-item">
+                    <div class="exercise-info">
+                        <span class="exercise-emoji">&#9889;</span>
+                        <div>
+                            <div class="exercise-name">Overhead Press</div>
+                            <div class="exercise-sets">3 sets &middot; 10-12 reps</div>
+                        </div>
+                    </div>
+                    <div class="exercise-detail">115 lbs</div>
+                </div>
+                <div class="exercise-item">
+                    <div class="exercise-info">
+                        <span class="exercise-emoji">&#128293;</span>
+                        <div>
+                            <div class="exercise-name">Cable Flyes</div>
+                            <div class="exercise-sets">3 sets &middot; 12-15 reps</div>
+                        </div>
+                    </div>
+                    <div class="exercise-detail">40 lbs</div>
+                </div>
+                <div class="exercise-item">
+                    <div class="exercise-info">
+                        <span class="exercise-emoji">&#128167;</span>
+                        <div>
+                            <div class="exercise-name">Face Pulls</div>
+                            <div class="exercise-sets">3 sets &middot; 15-20 reps</div>
+                        </div>
+                    </div>
+                    <div class="exercise-detail">30 lbs</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== TESTIMONIALS ==================== -->
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <div class="testimonials-header reveal">
+            <div class="section-label">Testimonials</div>
+            <h2 class="section-title">Loved by <span class="gradient-text">250K+ Athletes</span></h2>
+            <p class="section-desc">Real results from real people who transformed their fitness journey with FlexFlow Infinite AI.</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card reveal">
+                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <blockquote>"The AI adaptation is mind-blowing. It noticed I was plateauing before I did and completely restructured my program. Broke through in 2 weeks."</blockquote>
+                <div class="testimonial-author">
+                    <div class="author-avatar" style="background: linear-gradient(135deg, var(--accent), #9333ea);">M</div>
+                    <div>
+                        <div class="author-name">Marcus Chen</div>
+                        <div class="author-role">Competitive Powerlifter</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal">
+                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <blockquote>"As a busy mom, I needed something that adapts to my crazy schedule. FlexFlow AI creates 20-minute sessions that actually deliver results."</blockquote>
+                <div class="testimonial-author">
+                    <div class="author-avatar" style="background: linear-gradient(135deg, var(--cyan), #0891b2);">S</div>
+                    <div>
+                        <div class="author-name">Sarah Mitchell</div>
+                        <div class="author-role">Marathon Runner</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card reveal">
+                <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <blockquote>"The form analysis saved my shoulders. It caught a subtle imbalance in my bench press that even my trainer missed. Worth every penny."</blockquote>
+                <div class="testimonial-author">
+                    <div class="author-avatar" style="background: linear-gradient(135deg, var(--emerald), #059669);">J</div>
+                    <div>
+                        <div class="author-name">Jake Rodriguez</div>
+                        <div class="author-role">CrossFit Athlete</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PRICING ==================== -->
+<section class="pricing" id="pricing">
+    <div class="container">
+        <div class="pricing-header reveal">
+            <div class="section-label">Pricing</div>
+            <h2 class="section-title">Simple, Transparent <span class="gradient-text">Pricing</span></h2>
+            <p class="section-desc">Start free, upgrade when you're ready. No hidden fees, cancel anytime.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card reveal">
+                <div class="pricing-name">Starter</div>
+                <div class="pricing-desc">Perfect for getting started with AI fitness.</div>
+                <div class="pricing-amount">$0<span>/mo</span></div>
+                <div class="pricing-period">Free forever</div>
+                <div class="pricing-features">
+                    <div class="pricing-feature"><span class="check">&#10003;</span> 3 AI workouts per week</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Basic progress tracking</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Community access</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Exercise library</div>
+                </div>
+                <button class="btn btn-outline" style="width:100%;">Get Started</button>
+            </div>
+            <div class="pricing-card featured reveal">
+                <div class="pricing-popular">Most Popular</div>
+                <div class="pricing-name">Pro</div>
+                <div class="pricing-desc">Full AI power for serious athletes.</div>
+                <div class="pricing-amount">$19<span>/mo</span></div>
+                <div class="pricing-period">Billed monthly</div>
+                <div class="pricing-features">
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Unlimited AI workouts</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Real-time form analysis</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Smart nutrition plans</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Recovery optimization</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Advanced analytics</div>
+                </div>
+                <button class="btn btn-primary" style="width:100%;">Start Free Trial</button>
+            </div>
+            <div class="pricing-card reveal">
+                <div class="pricing-name">Elite</div>
+                <div class="pricing-desc">For teams and professional athletes.</div>
+                <div class="pricing-amount">$49<span>/mo</span></div>
+                <div class="pricing-period">Billed monthly</div>
+                <div class="pricing-features">
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Everything in Pro</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> 1-on-1 AI coaching calls</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Team management</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> API access</div>
+                    <div class="pricing-feature"><span class="check">&#10003;</span> Priority support</div>
+                </div>
+                <button class="btn btn-outline" style="width:100%;">Contact Sales</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CTA ==================== -->
+<section class="cta" id="cta">
+    <div class="cta-bg"></div>
+    <div class="container">
+        <div class="section-label">Ready to Transform?</div>
+        <h2 class="section-title">Start Your <span class="gradient-text">Infinite</span> Fitness Journey Today</h2>
+        <p class="section-desc">Join 250,000+ athletes who trust FlexFlow Infinite AI to push their limits. Free to start, no credit card required.</p>
+        <div class="cta-actions">
+            <button class="btn btn-primary">Start Free Trial</button>
+            <button class="btn btn-outline">Schedule a Demo</button>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">
+                    <div class="logo-icon">FF</div>
+                    FlexFlow <span class="gradient-text">AI</span>
+                </div>
+                <p>AI-powered fitness intelligence that adapts to your body, optimizes your training, and accelerates your results.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Product</h4>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#">Integrations</a>
+                <a href="#">Changelog</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Careers</a>
+                <a href="#">Press</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="#">Help Center</a>
+                <a href="#">Community</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 FlexFlow Infinite AI. All rights reserved.</span>
+            <div class="footer-socials">
+                <a href="#">Twitter</a>
+                <a href="#">GitHub</a>
+                <a href="#">Discord</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    mobileToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    // Smooth scroll
+    function scrollToSection(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 80);
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // AI typing effect
+    const aiMessages = [
+        "Your upper body strength increased 12% this month. Recommending progressive overload on bench press...",
+        "Recovery score is optimal. Today's session intensity has been increased by 8% for maximum gains...",
+        "Detected slight fatigue pattern. Adjusting tomorrow's volume to prioritize recovery and prevent overtraining...",
+        "Nutrition sync: You're 300 calories under target. Adding a post-workout shake to hit your protein goal..."
+    ];
+    let msgIndex = 0;
+    let charIndex = 0;
+    const typingEl = document.getElementById('typingText');
+
+    function typeMessage() {
+        const currentMsg = aiMessages[msgIndex];
+        if (charIndex < currentMsg.length) {
+            typingEl.textContent += currentMsg[charIndex];
+            charIndex++;
+            setTimeout(typeMessage, 25);
+        } else {
+            setTimeout(() => {
+                typingEl.textContent = '';
+                charIndex = 0;
+                msgIndex = (msgIndex + 1) % aiMessages.length;
+                typeMessage();
+            }, 3000);
+        }
+    }
+    typeMessage();
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
+</script>
+
 </body>
 </html>
