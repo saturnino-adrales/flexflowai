@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" width="600" height="300">
+  <defs>
+    <linearGradient id="neonGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#06d6f7"/>
+      <stop offset="35%" stop-color="#22d3ee"/>
+      <stop offset="55%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#d946ef"/>
+    </linearGradient>
+    <linearGradient id="armGrad" x1="0%" y1="0%" x2="60%" y2="100%">
+      <stop offset="0%" stop-color="#06d6f7"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="circuitGrad" x1="40%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#d946ef"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glowStrong">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Infinity path - main shape -->
+  <path d="M300,150
+           C300,150 240,60 165,60
+           C90,60 45,105 45,150
+           C45,195 90,240 165,240
+           C240,240 300,150 300,150
+           C300,150 360,60 435,60
+           C510,60 555,105 555,150
+           C555,195 510,240 435,240
+           C360,240 300,150 300,150Z"
+        fill="none" stroke="url(#neonGrad)" stroke-width="6" filter="url(#glow)" opacity="0.3"/>
+
+  <!-- Infinity path - bright core -->
+  <path d="M300,150
+           C300,150 240,60 165,60
+           C90,60 45,105 45,150
+           C45,195 90,240 165,240
+           C240,240 300,150 300,150
+           C300,150 360,60 435,60
+           C510,60 555,105 555,150
+           C555,195 510,240 435,240
+           C360,240 300,150 300,150Z"
+        fill="none" stroke="url(#neonGrad)" stroke-width="3.5" filter="url(#glow)"/>
+
+  <!-- Inner infinity lines for depth -->
+  <path d="M300,150
+           C300,150 245,72 170,72
+           C100,72 58,112 58,150
+           C58,188 100,228 170,228
+           C245,228 300,150 300,150
+           C300,150 355,72 430,72
+           C500,72 542,112 542,150
+           C542,188 500,228 430,228
+           C355,228 300,150 300,150Z"
+        fill="none" stroke="url(#neonGrad)" stroke-width="2" opacity="0.5"/>
+
+  <path d="M300,150
+           C300,150 250,84 175,84
+           C110,84 71,118 71,150
+           C71,182 110,216 175,216
+           C250,216 300,150 300,150
+           C300,150 350,84 425,84
+           C490,84 529,118 529,150
+           C529,182 490,216 425,216
+           C350,216 300,150 300,150Z"
+        fill="none" stroke="url(#neonGrad)" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Flexing arm (left lobe) -->
+  <g filter="url(#glow)">
+    <!-- Upper arm -->
+    <path d="M130,175 C130,175 115,160 110,140 C105,120 115,108 130,105"
+          fill="none" stroke="url(#armGrad)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Bicep bulge -->
+    <path d="M130,105 C130,105 150,90 155,95 C165,80 160,78 148,82"
+          fill="none" stroke="url(#armGrad)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Forearm -->
+    <path d="M155,95 C155,95 170,105 175,115 C178,122 172,128 168,125"
+          fill="none" stroke="url(#armGrad)" stroke-width="4" stroke-linecap="round"/>
+    <!-- Fist -->
+    <path d="M168,125 C168,125 165,118 158,118 C153,118 150,123 153,127 C156,131 163,130 168,125Z"
+          fill="none" stroke="url(#armGrad)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Circuit traces (right lobe) -->
+  <g filter="url(#glow)">
+    <!-- Main traces branching out -->
+    <line x1="410" y1="120" x2="470" y2="95" stroke="url(#circuitGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="415" y1="135" x2="485" y2="115" stroke="url(#circuitGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="420" y1="150" x2="490" y2="140" stroke="url(#circuitGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="415" y1="165" x2="480" y2="170" stroke="url(#circuitGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="410" y1="180" x2="465" y2="195" stroke="url(#circuitGrad)" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Circuit nodes (dots at ends) -->
+    <circle cx="470" cy="95" r="4" fill="#d946ef" filter="url(#glowStrong)"/>
+    <circle cx="485" cy="115" r="3.5" fill="#c084fc" filter="url(#glowStrong)"/>
+    <circle cx="490" cy="140" r="4" fill="#a78bfa" filter="url(#glowStrong)"/>
+    <circle cx="480" cy="170" r="3.5" fill="#c084fc" filter="url(#glowStrong)"/>
+    <circle cx="465" cy="195" r="4" fill="#d946ef" filter="url(#glowStrong)"/>
+
+    <!-- Secondary shorter traces -->
+    <line x1="450" y1="100" x2="460" y2="80" stroke="url(#circuitGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    <circle cx="460" cy="80" r="2.5" fill="#d946ef" opacity="0.7"/>
+    <line x1="470" y1="130" x2="500" y2="125" stroke="url(#circuitGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    <circle cx="500" cy="125" r="2.5" fill="#c084fc" opacity="0.7"/>
+    <line x1="460" y1="185" x2="475" y2="210" stroke="url(#circuitGrad)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+    <circle cx="475" cy="210" r="2.5" fill="#d946ef" opacity="0.7"/>
+  </g>
+</svg>
