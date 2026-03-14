@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="neonGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#00e5ff"/>
+      <stop offset="35%" stop-color="#00bcd4"/>
+      <stop offset="65%" stop-color="#9c27b0"/>
+      <stop offset="100%" stop-color="#e040fb"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#00e5ff" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#7c4dff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#e040fb" stop-opacity="0.3"/>
+    </linearGradient>
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur1"/>
+      <feGaussianBlur stdDeviation="12" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="outerGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#0a0e27"/>
+
+  <!-- Outer glow layer -->
+  <g filter="url(#outerGlow)" opacity="0.4">
+    <!-- Infinity base path -->
+    <path d="M250,200 C250,120 170,80 130,120 C90,160 90,180 120,210 C150,240 200,260 250,200 Z"
+          fill="none" stroke="url(#neonGrad)" stroke-width="6"/>
+    <path d="M250,200 C300,140 380,80 440,100 C520,125 560,160 560,200 C560,240 520,280 460,280 C400,280 340,240 250,200 Z"
+          fill="none" stroke="url(#neonGrad)" stroke-width="6"/>
+  </g>
+
+  <!-- Main infinity shape - left loop (arm side) -->
+  <g filter="url(#neonGlow)">
+    <!-- Outer infinity path -->
+    <path d="M390,170 C340,100 280,65 220,65 C150,65 95,115 95,195 C95,275 150,330 220,330 C280,330 330,300 390,230"
+          fill="none" stroke="url(#neonGrad)" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Right loop of infinity -->
+    <path d="M390,170 C440,100 510,65 570,65 C640,65 695,115 695,195 C695,275 640,330 570,330 C510,330 440,300 390,230"
+          fill="none" stroke="url(#neonGrad)" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Inner infinity lines (parallel strokes for multi-line neon effect) -->
+    <path d="M390,180 C345,115 285,85 225,85 C165,85 120,130 120,195 C120,260 165,305 225,305 C285,305 345,275 390,220"
+          fill="none" stroke="url(#neonGrad)" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M390,180 C435,115 505,85 565,85 C625,85 670,130 670,195 C670,260 625,305 565,305 C505,305 435,275 390,220"
+          fill="none" stroke="url(#neonGrad)" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- Third parallel line -->
+    <path d="M390,190 C350,135 290,105 230,105 C175,105 145,145 145,195 C145,245 175,280 230,280 C290,280 350,255 390,210"
+          fill="none" stroke="url(#neonGrad)" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M390,190 C430,135 500,105 555,105 C610,105 645,145 645,195 C645,245 610,280 555,280 C500,280 430,255 390,210"
+          fill="none" stroke="url(#neonGrad)" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Flexing arm on the left loop -->
+    <!-- Upper arm / bicep bulge -->
+    <path d="M175,130 C165,110 180,85 205,80 C220,78 230,85 225,95 L210,120"
+          fill="none" stroke="#00e5ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Forearm going up to fist -->
+    <path d="M210,120 C200,105 195,90 200,78 C205,68 215,60 225,58"
+          fill="none" stroke="#00e5ff" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Fist -->
+    <path d="M225,58 C235,55 245,58 248,65 C251,72 248,78 240,80 C232,82 225,78 222,72"
+          fill="none" stroke="#00e5ff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Bicep muscle bulge -->
+    <path d="M170,145 C155,130 148,115 155,105 C162,95 175,100 180,112"
+          fill="none" stroke="#00e5ff" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Muscle definition lines -->
+    <path d="M185,125 C178,118 175,110 180,105"
+          fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round"/>
+
+    <!-- Circuit board elements on right side -->
+    <!-- Circuit trace lines branching out -->
+    <line x1="640" y1="120" x2="680" y2="85" stroke="#e040fb" stroke-width="3" stroke-linecap="round"/>
+    <line x1="655" y1="130" x2="700" y2="100" stroke="#d050ea" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="665" y1="145" x2="720" y2="120" stroke="#c060d9" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Circuit nodes (dots at ends of traces) -->
+    <circle cx="680" cy="85" r="5" fill="#e040fb"/>
+    <circle cx="700" cy="100" r="4" fill="#d050ea"/>
+    <circle cx="720" cy="120" r="4.5" fill="#c060d9"/>
+
+    <!-- Bottom circuit traces -->
+    <line x1="640" y1="270" x2="675" y2="300" stroke="#e040fb" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="655" y1="260" x2="695" y2="285" stroke="#d050ea" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Bottom circuit nodes -->
+    <circle cx="675" cy="300" r="4.5" fill="#e040fb"/>
+    <circle cx="695" cy="285" r="4" fill="#d050ea"/>
+
+    <!-- Small circuit dots along the right loop -->
+    <circle cx="620" cy="155" r="3" fill="#b070c8"/>
+    <circle cx="625" cy="240" r="3" fill="#b070c8"/>
+  </g>
+</svg>
